@@ -1,5 +1,3 @@
-import jdk.jfr.Enabled;
-
 import java.awt.*;
 
 public class Enemy {
@@ -31,7 +29,7 @@ class Enemy_1_L extends Enemy {
         this.width = 45;
         this.height = 69;
         this.speed = 10;
-        this.count = 1;
+        this.count = 10;
         this.type = 1;
         this.img = GameUtils.enemy_l_img;
         this.dir = 1;

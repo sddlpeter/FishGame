@@ -1,11 +1,12 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.font.GlyphMetrics;
-import java.util.Random;
+import java.io.IOException;
 
 public class GameWin extends JFrame {
     int width = 1440;
@@ -19,8 +20,11 @@ public class GameWin extends JFrame {
     double random;
     Enemy boss;
     boolean isBoss = false;
+    SoundEffect se;
 
-    public GameWin() throws InterruptedException {
+    public GameWin() throws InterruptedException, UnsupportedAudioFileException, LineUnavailableException, IOException {
+        se = new SoundEffect();
+        se.play2();
         this.setVisible(true);
         this.setBounds(0, 1000, 1440, 900);
         this.setLocationRelativeTo(null);
@@ -109,7 +113,15 @@ public class GameWin extends JFrame {
                 break;
             case 1:
                 myFish.paintSelf(gImage);
-                logic();
+                try {
+                    logic();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 for (Enemy enemy : GameUtils.enemyList) {
                     enemy.paintSelf(gImage);
                 }
@@ -119,12 +131,21 @@ public class GameWin extends JFrame {
                     boss.paintSelf(gImage);
                     if (boss.x < 0) {
                         gImage.setColor(Color.RED);
-                        gImage.fillRect(boss.x + boss.height / 2, boss.y + boss.width / 2, 2800,boss.height / 30);
+                        gImage.fillRect(boss.x + boss.height / 2, boss.y + boss.width / 2, 2800,boss.height / 20);
                     }
                 }
                 break;
             case 2:
-                logic();
+                try {
+
+                    logic();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 for (Enemy e : GameUtils.enemyList) {
                     e.paintSelf(gImage);
                 }
@@ -156,7 +177,7 @@ public class GameWin extends JFrame {
         isBoss = false;
     }
 
-    void logic() {
+    void logic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(GameUtils.count < 5) {
             GameUtils.level = 0;
             myFish.level = 1;
@@ -233,6 +254,9 @@ public class GameWin extends JFrame {
                 }
                 if (boss.getRec().intersects(myFish.getRec())) {
                     state = 2;
+                    myFish.x = -500;
+                    myFish.y = -500;
+                    se.play3();
                 }
             }
 
@@ -241,9 +265,13 @@ public class GameWin extends JFrame {
                     e.x = -200;
                     e.y = -200;
                     if (state == 2) continue;
+                    se.play1();
                     GameUtils.count += e.count;
                 } else {
                     state = 2;
+                    myFish.x = -500;
+                    myFish.y = -500;
+                    se.play3();
                 }
 
             }

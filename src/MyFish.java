@@ -6,7 +6,7 @@ public class MyFish {
     int y = 500;
     int width = 50;
     int height = 50;
-    int speed = 20;
+    int speed = 25;
     int level = 1;
 
     public void paintSelf(Graphics g) {

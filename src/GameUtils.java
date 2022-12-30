@@ -16,6 +16,10 @@ public class GameUtils {
     public static Image myFishImg_L = Toolkit.getDefaultToolkit().createImage("C:\\Users\\Admin\\IdeaProjects\\FishGame\\images\\myFish\\fish_L.png");
     public static Image myFishImg_R = Toolkit.getDefaultToolkit().createImage("C:\\Users\\Admin\\IdeaProjects\\FishGame\\images\\myFish\\fish_R.png");
 
+    public static String filePath1 = "C:\\Users\\Admin\\IdeaProjects\\FishGame\\sound\\effects\\action.wav";
+    public static String filePath2 = "C:\\Users\\Admin\\IdeaProjects\\FishGame\\sound\\bgmusic\\bgmusic.wav";
+    public static String filePath3 = "C:\\Users\\Admin\\IdeaProjects\\FishGame\\sound\\effects\\gameover.wav";
+
     static boolean UP = false;
     static boolean DOWN = false;
     static boolean LEFT = false;
